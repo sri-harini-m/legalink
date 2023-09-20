@@ -2,15 +2,13 @@ import React from 'react';
 import { View } from 'react-native';
 import { StyleSheet } from 'react-native';
 import { Text } from 'react-native';
+import Inputs from './inputs.js';
 
-function LoginScreen(props) {
+function LoginScreen(props){
     return (
-        <View>
-            <Text>Hello This should become the login page! </Text>
-
-        </View>
-    );
-}
+       <Inputs />
+    )
+ }
 
 const styles = StyleSheet.create({
     container: {
