@@ -3,9 +3,6 @@ import {
   View,
   Text,
   StyleSheet,
-  SafeAreaView,
-  Image,
-  ScrollView,
   TouchableOpacity,
 } from "react-native";
 
@@ -23,40 +20,91 @@ export default function ProfileScreen() {
     signOut(auth);
   };
 
-  return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={styles.infocontainer}>
-          <Text style={[styles.text, { fontWeight: "100", fontSize: 20 }]}>
-            {" "}
-            {displayName}{" "}
-          </Text>
-          <Text style={[styles.text, { color: "#101010", fontSize: 18 }]}>
-            Criminal(Alleged)
-          </Text>
-          <TouchableOpacity onPress={signoutFirebase}>
-            <Text>signout</Text>
-          </TouchableOpacity>
+ return (
+    <View style={styles.container}>
+      <View style={styles.body}>
+        <View style={styles.avatarContainer}>
+          <Text style={styles.avatar}>ME</Text>
         </View>
-      </ScrollView>
-    </SafeAreaView>
+        <View style={styles.nameContainer}>
+          <Text style={styles.name}>{" "}{displayName}{" "}</Text>
+        </View>
+        <View style={styles.infoContainer}>
+          <Text style={styles.infoLabel}>Phone:</Text>
+          <Text style={styles.infoText}>0000000000</Text>
+        </View>
+        <View style={styles.infoContainer}>
+          <Text style={styles.infoLabel}>Location:</Text>
+          <Text style={styles.infoText}>Prison</Text>
+        </View>
+        <View style={styles.infoContainer}>
+          <Text style={styles.infoLabel}>Bio:</Text>
+          <Text style={styles.infoText}>Did not commit war crimes :)</Text>
+        </View>
+        <View style={styles.infoContainer}>
+          <Text style={styles.infoLabel}>Status:</Text>
+          <Text style={styles.infoText}>On the run</Text>
+        </View>
+        <View style={styles.infoContainer}>
+        <TouchableOpacity onPress={signoutFirebase}>
+            <Text style ={styles.infoLabel}>signout</Text>
+         </TouchableOpacity></View>
+      </View>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#AEB5BC",
-    alignItems: "center",
-    justifyContent: "center",
+    backgroundColor: '#ECF0F3',
   },
-  text: {
-    fontFamily: "HelveticanNeue",
-    color: "#101010",
+  body: {
+    marginTop:120,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  infocontainer: {
-    alignSelf: "center",
-    alignItems: "center",
-    marginTop: 16,
+  avatarContainer: {
+    width: 140,
+    height: 140,
+    borderRadius: 70,
+    backgroundColor: '#FFFFFF',
+    alignItems: 'center',
+    justifyContent: 'center',
+    shadowColor: '#000000',
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowRadius: 6,
+    shadowOpacity: 0.16,
+  },
+  avatar: {
+    fontSize: 72,
+    fontWeight: '700',
+  },
+  nameContainer: {
+    marginTop: 24,
+    alignItems: 'center',
+  },
+  name: {
+    fontSize: 24,
+    fontWeight: '600',
+  },
+  infoContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 12,
+  },
+  infoLabel: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#666666',
+    marginRight: 8,
+  },
+  infoText: {
+    fontSize: 16,
   },
 });
+
+                                         
