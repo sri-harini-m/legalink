@@ -7,7 +7,7 @@ import {
   StyleSheet,
 } from "react-native";
 import { FIREBASE_AUTH } from "../firebaseConfig";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 
 // import { SQLite } from "react-native-sqlite-storage"
 
@@ -22,9 +22,14 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 //     (error) =>{console.log(error)}
 // )
 
-function LoginScreen({ navigation }) {
+function SignupScreen({ navigation }) {
   const [email, setemail] = useState([""]);
   const [password, setpassword] = useState([""]);
+  const [Name, setName] = useState([""]);
+
+  handleName = (text) => {
+    setName(text);
+  };
   handleEmail = (text) => {
     setemail(text);
   };
@@ -43,16 +48,20 @@ function LoginScreen({ navigation }) {
 
   const signIn = async (email, password) => {
     try {
-      const response = await signInWithEmailAndPassword(auth, email, password);
+      const response = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+
       console.log(response);
     } catch (error) {
-      if (error.code == "auth/invalid-login-credentials") {
-        alert("Incorrect Login Credentials :");
-      } else {
-        console.log("error");
-        alert("Please Contact Admins");
-      }
+      console.log("error");
+      alert("Please Contact Admins");
     }
+    await updateProfile(auth.currentUser, { displayName: Name }).catch((err) =>
+      console.log(err)
+    );
   };
 
   //     signInWithEmailAndPassword(auth, email, password)
@@ -70,7 +79,15 @@ function LoginScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}> Login Screen</Text>
+      <Text style={styles.title}> Signup Now!</Text>
+      <View style={styles.inputView}>
+        <TextInput
+          style={styles.inputText}
+          placeholder="Name"
+          placeholderTextColor="#003f5c"
+          onChangeText={this.handleName}
+        />
+      </View>
       <View style={styles.inputView}>
         <TextInput
           style={styles.inputText}
@@ -94,13 +111,13 @@ function LoginScreen({ navigation }) {
         }}
         style={styles.loginBtn}
       >
-        <Text style={styles.loginText}>LOGIN </Text>
+        <Text style={styles.loginText}>Signup </Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.submitButton}
-        onPress={() => navigation.navigate("Signup")}
+        onPress={() => navigation.navigate("Login")}
       >
-        <Text style={styles.submitButtonText}> Signup </Text>
+        <Text style={styles.submitButtonText}> Login </Text>
       </TouchableOpacity>
     </View>
   );
@@ -142,4 +159,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LoginScreen;
+export default SignupScreen;
