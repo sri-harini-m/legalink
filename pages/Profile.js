@@ -8,9 +8,7 @@ export default function ProfileScreen() {
   let displayName = undefined;
   const auth = FIREBASE_AUTH;
   const user = auth.currentUser;
-  if (user !== null) {
-    displayName = user.displayName;
-  }
+  console.log(typeof user.displayName);
   const signoutFirebase = async () => {
     {
       (" ");
@@ -26,7 +24,7 @@ export default function ProfileScreen() {
         </View>
         <View style={styles.nameContainer}>
           <Text style={styles.name}>
-            {displayName == undefined ? "user" : { displayName }}
+            {typeof user.displayName != "string" ? "User" : user.displayName}
           </Text>
         </View>
         <View style={styles.infoContainer}>
