@@ -12,7 +12,6 @@ import { User, onAuthStateChanged } from "firebase/auth";
 import LoginScreen from './pages/LoginScreen';
 import  SignupScreen  from "./pages/SignupScreen";
 import { FIREBASE_AUTH } from './firebaseConfig';
-import Dashboard  from "./pages/Dashboard";
 
 import HomeScreen from './pages/Home';
 import ProfileScreen from './pages/Profile';
