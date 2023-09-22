@@ -1,10 +1,25 @@
-import * as React from 'react';
-import { View, Text } from "react-native";
+import React from 'react';
+import { StyleSheet, View, Text } from "react-native";
+import { WebView } from 'react-native-webview';
+
+const LEGAL = 'https://www.legalserviceindia.com/article/             ';
 
 export default function ResourcesScreen() {
    return (
-<View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-<Text style={{fontSize:16,fontWeight:'700'}}>Resources Screen</Text>
-</View>
+            <WebView 
+               style = {styles.container}
+               source = {{uri: LEGAL }}
+               onLoad={console.log("Loaded")}
+            />
    );
  }
+
+ const styles = StyleSheet.create({
+   container: {
+      marginTop: 28,
+      flex: 1,
+      backgroundColor : 'white',
+      alignItems: 'center',
+      justifyContent: 'center'
+   }
+ })
