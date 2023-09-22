@@ -31,7 +31,7 @@ export default function HomeScreen() {
       Description:
         "The formal civil trial to resolve the dispute between Mark Edward and Sriharini Margapuri. Both parties will present their cases and evidence before the judge, who will make a final decision",
       Location: "Delhi District Court, Room 302",
-      Date: Date.UTC(2023, 8, 18, 10, 0, 0),
+      Date: Date.UTC(2023, 9, 7, 10, 0, 0),
       caseNumber: "Case #56789",
       judgeName: "Meowster Meowman",
       Status: "Upcoming",
@@ -43,7 +43,7 @@ export default function HomeScreen() {
       Description:
         "Preliminary hearing for the civil dispute between Mark Edward and Sriharini Margapuri",
       Location: "Delhi District Court, Room 302",
-      Date: Date.UTC(2023, 9, 7, 10, 0, 0),
+      Date: Date.UTC(2023, 8, 18, 10, 0, 0),
       caseNumber: "Case #12345",
       judgeName: "Saad Mujeeb",
       Status: "Completed",
@@ -55,32 +55,32 @@ export default function HomeScreen() {
     <ScrollView>
       <Text style={styles.mainTitle}>Upcoming Events:</Text>
 
-      <View style={styles.cardContent}>
+      <View>
         {events.map((event) => {
           return (
-            <>
+            <View key={event.id}>
               {new Date(event.Date) > new Date() ? (
                 <TouchableOpacity
                   style={[styles.card, { borderColor: "#999999" }]}
                 >
-                  <Text style={styles.Title} key={event.id}>
+                  <Text style={styles.Title}>
                     <Text style={styles.bold}>Title:</Text> {event.Title}
                   </Text>
-                  <Text style={styles}>
+                  <Text  >
                     <Text style={styles.bold}>Description:</Text>
                     {event.Description}
                   </Text>
-                  <Text style={styles}>
+                  <Text  >
                     <Text style={styles.bold}>judge:</Text> {event.judgeName}
                   </Text>
-                  <Text style={styles}>
+                  <Text  >
                     <Text style={styles.bold}>Status:</Text> {event.Status}
                   </Text>
-                  <Text style={styles}>
+                  <Text  >
                     <Text style={styles.bold}>Case Number:</Text>{" "}
                     {event.caseNumber}
                   </Text>
-                  <Text style={styles}>
+                  <Text  >
                     <Text style={styles.bold}>Notes:</Text> {event.Notes}
                   </Text>
                   <Text style={styles.Date}>
@@ -91,38 +91,38 @@ export default function HomeScreen() {
                   </Text>
                 </TouchableOpacity>
               ) : null}
-            </>
+            </View>
           );
         })}
       </View>
       <Text style={styles.mainTitle}>Past Events:</Text>
 
-      <View style={styles.cardContent}>
+      <View>
         {events.map((event) => {
           return (
-            <>
+            <View key={event.id}>
               {new Date(event.Date) < new Date() ? (
                 <TouchableOpacity
                   style={[styles.card, { borderColor: "#999999" }]}
                 >
-                  <Text style={styles.Title} key={event.id}>
+                  <Text style={styles.Title}>
                     <Text style={styles.bold}>Title:</Text> {event.Title}
                   </Text>
-                  <Text style={styles}>
+                  <Text >
                     <Text style={styles.bold}>Description:</Text>
                     {event.Description}
                   </Text>
-                  <Text style={styles}>
+                  <Text >
                     <Text style={styles.bold}>judge:</Text> {event.judgeName}
                   </Text>
-                  <Text style={styles}>
+                  <Text >
                     <Text style={styles.bold}>Status:</Text> {event.Status}
                   </Text>
-                  <Text style={styles}>
+                  <Text  >
                     <Text style={styles.bold}>Case Number:</Text>{" "}
                     {event.caseNumber}
                   </Text>
-                  <Text style={styles}>
+                  <Text  >
                     <Text style={styles.bold}>Notes:</Text> {event.Notes}
                   </Text>
                   <Text style={styles.Date}>
@@ -133,7 +133,7 @@ export default function HomeScreen() {
                   </Text>
                 </TouchableOpacity>
               ) : null}
-            </>
+            </View>
           );
         })}
       </View>
