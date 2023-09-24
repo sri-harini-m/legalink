@@ -6,8 +6,9 @@ import {
   TextInput,
   StyleSheet,
 } from "react-native";
-import { FIREBASE_AUTH } from "../firebaseConfig";
+import { FIREBASE_AUTH, FIREBASE_DB } from "../firebaseConfig";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
 
 // import { SQLite } from "react-native-sqlite-storage"
 
@@ -26,7 +27,11 @@ function SignupScreen({ navigation }) {
   const [email, setemail] = useState([""]);
   const [password, setpassword] = useState([""]);
   const [Name, setName] = useState([""]);
+  const [Number, setNumber] = useState(1000000000);
 
+  handleNumber = (number) => {
+    setNumber(number);
+  };
   handleName = (text) => {
     setName(text);
   };
@@ -46,22 +51,28 @@ function SignupScreen({ navigation }) {
 
   auth = FIREBASE_AUTH;
 
-  const signIn = async (email, password) => {
+  const signUp = async (email, password) => {
     try {
       const response = await createUserWithEmailAndPassword(
         auth,
         email,
         password
       );
+      await updateProfile(auth.currentUser, { displayName: Name });
+
+      const docRef = await setDoc(
+        doc(FIREBASE_DB, "/users", auth.currentUser.uid),
+        {
+          Name: Name,
+          PhoneNumber: Number,
+        }
+      );
 
       console.log(response);
     } catch (error) {
-      console.log("error");
+      console.log(error);
       alert("Please Contact Admins");
     }
-    await updateProfile(auth.currentUser, { displayName: Name }).catch((err) =>
-      console.log(err)
-    );
   };
 
   //     signInWithEmailAndPassword(auth, email, password)
@@ -96,7 +107,14 @@ function SignupScreen({ navigation }) {
           onChangeText={this.handleEmail}
         />
       </View>
-
+      <View style={styles.inputView}>
+        <TextInput
+          style={styles.inputText}
+          placeholder="Phone Number"
+          placeholderTextColor="#003f5c"
+          onChangeText={this.handleNumber}
+        />
+      </View>
       <View style={styles.inputView}>
         <TextInput
           style={styles.inputText}
@@ -107,7 +125,7 @@ function SignupScreen({ navigation }) {
       </View>
       <TouchableOpacity
         onPress={() => {
-          signIn(email, password);
+          signUp(email, password);
         }}
         style={styles.loginBtn}
       >

@@ -11,6 +11,16 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
+    "expo": {
+      "plugins": [
+        [
+          "expo-location",
+          {
+            "locationAlwaysAndWhenInUsePermission": "Allow Legalite to use your location?"
+          }
+        ]
+      ]
+    },
     "assetBundlePatterns": [
       "**/*"
     ],

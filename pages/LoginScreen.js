@@ -47,9 +47,11 @@ function LoginScreen({ navigation }) {
       console.log(response);
     } catch (error) {
       if (error.code == "auth/invalid-login-credentials") {
-        alert("Incorrect Login Credentials :");
+        alert("Incorrect Login Credentials");
+      } else if (error.code == "auth/invalid-email") {
+        alert("Invalid Email");
       } else {
-        console.log("error");
+        console.log(error);
         alert("Please Contact Admins");
       }
     }
