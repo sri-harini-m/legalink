@@ -1,14 +1,17 @@
 import * as React from 'react';
-import { StyleSheet, View, Text, TextInput, FlatList, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, TextInput, FlatList, Image, TouchableOpacity, Alert} from 'react-native';
 import { useState } from 'react';
 import { WebView } from 'react-native-webview';
+import { InAppBrowserAndroidOptions } from 'react-native-inappbrowser-reborn';
+import InAppBrowser from 'react-native-inappbrowser-reborn';
+import { Linking } from 'react-native';
 export default function RehabScreen() {
   const rehabData = [
     {
       id: '1',
       image: require('../assets/voc.jpg'),
       type:'Vocational Training',
-      link:'https://www.aicte-india.org/education/vocational-education'
+      link: 'https://www.aicte-india.org/education/vocational-education'
     },
     {
       id: '2',
@@ -23,20 +26,14 @@ export default function RehabScreen() {
       link:'https://recoverycentersofamerica.com/blogs/top-5-things-to-do-to-avoid-relapse/'
     }
   ];
-  
-  const [searchText, setSearchText] = useState('');
 
+  const [searchText, setSearchText] = useState('');
   const handleSearch = (text) => {
     setSearchText(text);
   }
-
+  
   const renderItem = ({ item }) => (
-    <TouchableOpacity style={styles.card} onPress={()=>
-      {<WebView 
-          style = {styles.container}
-          source = {{uri: item.link }}
-          onLoad={console.log("Loaded")}
-      />}}>
+    <TouchableOpacity style={styles.card} onPress={()=>{Linking.openURL(item.link)}}>
       <Image style={styles.image} resizeMode='cover' source={item.image}/>
       <View style={styles.cardBody}>
         <Text style={styles.type}>{item.type}</Text>
