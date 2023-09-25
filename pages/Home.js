@@ -1,5 +1,7 @@
 import * as React from "react";
 import { useState } from "react";
+import ChatBot from './LawBot';//adding this for the chat bot
+import ChatModal from './LawModal';
 import {
   View,
   Text,
@@ -9,6 +11,12 @@ import {
 } from "react-native";
 
 export default function HomeScreen() {
+  const [isChatOpen, setIsChatOpen] = React.useState(false);
+
+  const toggleChat = () => {
+    setIsChatOpen(prevState => !prevState);
+  };
+
   const options1 = {
     year: "numeric",
     month: "long",
@@ -137,7 +145,22 @@ export default function HomeScreen() {
           );
         })}
       </View>
+
+      <View style={{ flex: 1 }}>
+      {isChatOpen && <ChatBot />}
+      <TouchableOpacity
+        style={{ flex: 0, alignSelf: 'flex-start', margin: 20 }}
+        onPress={toggleChat}
+      >
+        {/* button kek also why comments being weird here */}
+        <View style={{ padding: 10, backgroundColor: 'blue', borderRadius: 10 }}>
+          <Text style={{ color: 'white', fontWeight: 'bold' }}>Law Bot</Text>
+        </View>
+      </TouchableOpacity>
+      <ChatModal isVisible={isChatOpen} onClose={toggleChat} />
+    </View>
     </ScrollView>
+    
   );
 }
 const styles = StyleSheet.create({
