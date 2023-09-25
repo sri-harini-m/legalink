@@ -30,6 +30,7 @@ export default function AttorneyScreen() {
       firm: "Canine Law Firm",
     },
   ];
+  
   const [searchText, setSearchText] = useState('');
 
   const handleSearch = (text) => {
@@ -38,6 +39,7 @@ export default function AttorneyScreen() {
   const filteredData = optionList.filter((item) => {
     return item.name.toLowerCase().includes(searchText.toLowerCase());
   });
+
   return (
     <View style={styles.container}>
       <View style={styles.formContent}>

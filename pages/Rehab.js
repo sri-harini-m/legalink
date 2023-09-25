@@ -40,7 +40,6 @@ export default function RehabScreen() {
       <Image style={styles.image} resizeMode='cover' source={item.image}/>
       <View style={styles.cardBody}>
         <Text style={styles.type}>{item.type}</Text>
-        
       </View>
     </TouchableOpacity>
   );
