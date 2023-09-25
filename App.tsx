@@ -11,7 +11,7 @@ import { User, onAuthStateChanged } from "firebase/auth";
 
 import LoginScreen from './pages/LoginScreen';
 import  SignupScreen  from "./pages/SignupScreen";
-import { FIREBASE_AUTH, FIREBASE_DB } from './firebaseConfig';
+import { FIREBASE_AUTH } from './firebaseConfig';
 
 import HomeScreen from './pages/Home';
 import ProfileScreen from './pages/Profile';
@@ -19,14 +19,14 @@ import ProceedingsScreen from './pages/Proceedings';
 import AttorneyScreen from './pages/Attorneys';
 import ResourcesScreen from './pages/Resources';
 import RehabScreen from './pages/Rehab';
-import AttorneysDetails  from "./pages/AttorneysDetails";
+import AttorneysDetails  from "./pages/nested_pages/AttorneysDetails";
 
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 import * as Location from 'expo-location';
 
 import DrawerItems from './constants/MenuItems';
-import { doc, updateDoc } from 'firebase/firestore';
+// import { doc, updateDoc } from 'firebase/firestore';
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -82,62 +82,77 @@ const Permission = () =>{
 }
 
 export default function App() {
-  const [location, setLocation] = useState(null);
-  const [errorMsg, setErrorMsg] = useState(null);
+  // const [location, setLocation] = useState(null);
+  const [errorMsg, setErrorMsg] = useState("no error");
 
   const auth = FIREBASE_AUTH
   const [user, setuser] = useState<User|null>(null);
   
-  const getLocation = async () =>{
+  // const getLocation = async () =>{
    
       
-      let { status } = await Location.requestForegroundPermissionsAsync();
-      console.log(status)
-      if (status !== 'granted') {
-        setErrorMsg('Permission to access location was denied');
-        console.log(errorMsg)
-        return;
-      }
+  //     let { status } = await Location.requestForegroundPermissionsAsync();
+  //     console.log(status)
+  //     if (status !== 'granted') {
+  //       setErrorMsg('Permission to access location was denied');
+  //       console.log(errorMsg)
+  //       return;
+  //     }
       
-      else{
-      setErrorMsg(status)
-      let location = await Location.getCurrentPositionAsync({});
-      let latitude =  location.coords.latitude
-      let longitude = location.coords.longitude
+  //     else{
+  //     setErrorMsg(status)
+  //     let location = await Location.getCurrentPositionAsync({});
+  //     let latitude =  location.coords.latitude
+  //     let longitude = location.coords.longitude
       
-      const docRef = await updateDoc(
-        doc(FIREBASE_DB, "/users", auth.currentUser.uid),
-        {
-          latitude: latitude,
-          longitude: longitude,
-        }
-      );
-      setLocation(location);
-      console.log(JSON.stringify(Location))
-    }
+  //     const docRef = await updateDoc(
+  //       doc(FIREBASE_DB, "/users", auth.currentUser.uid),
+  //       {
+  //         latitude: latitude,
+  //         longitude: longitude,
+  //       }
+  //     );
+  //     setLocation(location);
+  //     console.log(JSON.stringify(Location))
+  //   }
       
     
-  }
+  // }
 
-  useEffect(() => {
-    (async () => {
+  // useEffect(() => {
+  //   (async () => {
       
-      let { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== 'granted') {
-        setErrorMsg('Permission to access location was denied');
-        console.log(errorMsg)
-        return;
-      }
+  //     let { status } = await Location.requestForegroundPermissionsAsync();
+  //     if (status !== 'granted') {
+  //       setErrorMsg('Permission to access location was denied');
+       
+  //       return;
+  //     }
+  //     else {
+  //       setErrorMsg('granted');
+  //     }
+  //   })();
+  // }, []);
 
-      let location = await Location.getCurrentPositionAsync({});
-      setLocation(location);
-      console.log(JSON.stringify(Location))
-    })();
-  }, []);
+  React.useEffect(() => {
+    const config = async () => {
+        let resf = await Location.requestForegroundPermissionsAsync();
+        let resb = await Location.requestBackgroundPermissionsAsync();
+        if (resf.status != 'granted' && resb.status !== 'granted') {
+            console.log('Permission to access location was denied');
+        } else {
+            console.log('Permission to access location granted');
+            setErrorMsg('granted');
+
+        }
+    };
+
+    config();
+}, []);
+
   
 useEffect(()=>{
   onAuthStateChanged(auth, (user)=>{
-    getLocation()
     console.log(user)
     setuser(user)
   })
