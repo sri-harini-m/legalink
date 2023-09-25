@@ -17,7 +17,7 @@ export default function AttorneyScreen({ navigation }) {
       id: 1,
       color: "#999999",
       icon: "https://t4.ftcdn.net/jpg/00/97/58/97/360_F_97589769_t45CqXyzjz0KXwoBZT9PRaWGHRk5hQqQ.jpg",
-      name: "Laywer Cat",
+      name: "Lawyer Cat",
       occ: " Defense Attorney",
       firm: "Feline Law Firm",
       education: ["feline Training acadamy", "catword law school"],
@@ -26,14 +26,21 @@ export default function AttorneyScreen({ navigation }) {
       id: 2,
       color: "#999999",
       icon: "https://img.freepik.com/free-photo/isolated-happy-smiling-dog-white-background-portrait-4_1562-693.jpg?w=2000",
-      name: "Laywer Dog",
+      name: "Lawyer Dog",
       occ: "Prosecutor",
       firm: "Canine Law Firm",
       education: ["Brown dog", "catsSuck law school"],
     },
   ];
-  const [options, setOptions] = useState(optionList);
-  const [query, setQuery] = useState();
+  
+  const [searchText, setSearchText] = useState('');
+
+  const handleSearch = (text) => {
+    setSearchText(text);
+  }
+  const filteredData = optionList.filter((item) => {
+    return item.name.toLowerCase().includes(searchText.toLowerCase());
+  });
 
   return (
     <View style={styles.container}>
@@ -43,14 +50,15 @@ export default function AttorneyScreen({ navigation }) {
             style={styles.inputs}
             placeholder="Search for Attorney..."
             underlineColorAndroid="transparent"
-            onChangeText={(q) => setQuery(q)}
+            onChangeText={handleSearch}
+            value={searchText}
           />
         </View>
       </View>
 
       <FlatList
         style={styles.notificationList}
-        data={options}
+        data={filteredData}
         keyExtractor={(item) => {
           return item.id;
         }}

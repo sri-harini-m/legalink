@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, View, Text } from "react-native";
 import { WebView } from 'react-native-webview';
 
-const LEGAL = 'https://www.legalserviceindia.com/article/             ';
+const LEGAL = 'https://www.legalserviceindia.com/article/';
 
 export default function ResourcesScreen() {
    return (
