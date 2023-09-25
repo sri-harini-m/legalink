@@ -19,6 +19,7 @@ import ProceedingsScreen from './pages/Proceedings';
 import AttorneyScreen from './pages/Attorneys';
 import ResourcesScreen from './pages/Resources';
 import RehabScreen from './pages/Rehab';
+import AttorneysDetails  from "./pages/AttorneysDetails";
 
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
@@ -29,6 +30,56 @@ import { doc, updateDoc } from 'firebase/firestore';
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
+
+const MainScreen = () =>{
+  return(<Drawer.Navigator
+    drawerType="front"
+    initialRouteName="Login Screen"
+    drawerContentOptions={{
+      activeTintColor: '#e91e63',
+      itemStyle: { marginVertical: 10 },
+    }}
+
+>
+
+    {
+        DrawerItems.map(drawer=><Drawer.Screen
+        key={drawer.name}
+        name={drawer.name}
+        options={{
+        drawerIcon:({focused})=>
+          drawer.iconType==='Material' ?
+<MaterialCommunityIcons
+              name={drawer.iconName}
+              size={24}
+              color={focused ? "#e91e63" : "black"}
+          />
+        :
+        drawer.iconType==='Feather' ?
+<Feather
+            name={drawer.iconName}
+            size={24}
+            color={focused ? "#e91e63" : "black"}
+          />
+      : <></>    
+        }}
+        component = {
+          //drawer.name==='LoginScreen' ? LoginScreen
+            drawer.name==='Home' ? HomeScreen
+            : drawer.name==='Profile' ? ProfileScreen
+            : drawer.name==='Attorneys' ? AttorneyScreen
+              :drawer.name==='Proceedings' ? ProceedingsScreen
+                :drawer.name==='Resources' ? ResourcesScreen
+                  : RehabScreen
+        }
+/>)
+      }
+    </Drawer.Navigator>)
+}
+
+const Permission = () =>{
+  return(<View style={styles.centerContainer}><Text >Please allow location Permission</Text></View>)
+}
 
 export default function App() {
   const [location, setLocation] = useState(null);
@@ -47,11 +98,12 @@ export default function App() {
         console.log(errorMsg)
         return;
       }
+      
+      else{
       setErrorMsg(status)
-
       let location = await Location.getCurrentPositionAsync({});
-      let latitude = (await location).coords.latitude
-      let longitude = (await location).coords.longitude
+      let latitude =  location.coords.latitude
+      let longitude = location.coords.longitude
       
       const docRef = await updateDoc(
         doc(FIREBASE_DB, "/users", auth.currentUser.uid),
@@ -62,6 +114,7 @@ export default function App() {
       );
       setLocation(location);
       console.log(JSON.stringify(Location))
+    }
       
     
   }
@@ -92,62 +145,39 @@ useEffect(()=>{
 
   return (
     <NavigationContainer>
+  <Stack.Navigator>
+             
+
       {
       (user == null)?(
-        <Stack.Navigator>
+        <Stack.Group>
         <Stack.Screen
           name="Login"
           component={LoginScreen}/>
         <Stack.Screen
           name="Signup"
-          component={SignupScreen}/>         
-        </Stack.Navigator>
+          component={SignupScreen}/>  
+          </Stack.Group>       
       ):
-      (errorMsg !== 'granted')?(<View style={styles.centerContainer}><Text style={styles.center}>Please allow location Permission</Text></View>):
-      (    
-        <Drawer.Navigator
-        drawerType="front"
-        initialRouteName="Login Screen"
-        drawerContentOptions={{
-          activeTintColor: '#e91e63',
-          itemStyle: { marginVertical: 10 },
-        }}
- 
- >
-        {
-          DrawerItems.map(drawer=><Drawer.Screen
-           key={drawer.name}
-           name={drawer.name}
-           options={{
-           drawerIcon:({focused})=>
-            drawer.iconType==='Material' ?
- <MaterialCommunityIcons
-                 name={drawer.iconName}
-                 size={24}
-                 color={focused ? "#e91e63" : "black"}
-             />
-           :
-           drawer.iconType==='Feather' ?
- <Feather
-               name={drawer.iconName}
-               size={24}
-               color={focused ? "#e91e63" : "black"}
-             />
-         : <></>    
-           }}
-           component = {
-             //drawer.name==='LoginScreen' ? LoginScreen
-               drawer.name==='Home' ? HomeScreen
-               : drawer.name==='Profile' ? ProfileScreen
-               : drawer.name==='Attorneys' ? AttorneyScreen
-                 :drawer.name==='Proceedings' ? ProceedingsScreen
-                   :drawer.name==='Resources' ? ResourcesScreen
-                     : RehabScreen
-           }
- />)
-        }
-       </Drawer.Navigator>
+      (errorMsg !== 'granted')?(
+      <Stack.Group>
+        <Stack.Screen name="permission" component={Permission}/>
+        </Stack.Group>
+
+        ):
+      (    <Stack.Group>
+        <Stack.Screen
+          name="Main"
+          component={MainScreen}
+          options={{ headerShown: false }}
+          />  
+        <Stack.Screen
+          name="AttorneysDetails"
+          component={AttorneysDetails}/>
+
+        </Stack.Group>
       )
+      
 }
       {/* <Stack.Navigator>
         <Stack.Screen
@@ -165,6 +195,9 @@ useEffect(()=>{
           }}
           />
         </Stack.Navigator> */}
+         
+                </Stack.Navigator>
+
       </NavigationContainer>
 
   );

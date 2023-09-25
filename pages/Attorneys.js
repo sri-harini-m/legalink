@@ -11,7 +11,7 @@ import {
   FlatList,
 } from "react-native";
 
-export default function AttorneyScreen() {
+export default function AttorneyScreen({ navigation }) {
   const optionList = [
     {
       id: 1,
@@ -20,6 +20,7 @@ export default function AttorneyScreen() {
       name: "Laywer Cat",
       occ: " Defense Attorney",
       firm: "Feline Law Firm",
+      education: ["feline Training acadamy", "catword law school"],
     },
     {
       id: 2,
@@ -28,6 +29,7 @@ export default function AttorneyScreen() {
       name: "Laywer Dog",
       occ: "Prosecutor",
       firm: "Canine Law Firm",
+      education: ["Brown dog", "catsSuck law school"],
     },
   ];
   const [options, setOptions] = useState(optionList);
@@ -57,7 +59,8 @@ export default function AttorneyScreen() {
             <TouchableOpacity
               style={[styles.card, { borderColor: item.color }]}
               onPress={() => {
-                Alert.alert(item.name);
+                /* 1. Navigate to the Details route with params */
+                navigation.push("AttorneysDetails", item);
               }}
             >
               <View style={styles.cardContent}>
