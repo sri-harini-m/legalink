@@ -22,15 +22,26 @@ import ResourcesScreen from './pages/Resources';
 import RehabScreen from './pages/Rehab';
 import AttorneysDetails  from "./pages/nested_pages/AttorneysDetails";
 
+import LClientsScreen from "./lawyerpages/LClients";
+import LHomeScreen from "./lawyerpages/LHome";
+import LMapScreen from "./lawyerpages/LMap";
+import LProfileScreen from "./lawyerpages/LProfile";
+import LResourcesScreen from "./lawyerpages/LResources";
+import LProceedingsScreen from "./lawyerpages/LProceedings";
+
+
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 import * as Location from 'expo-location';
 
 import DrawerItems from './constants/MenuItems';
+import LDrawerItems from './constants/LMenuItems';
+
 import SignupScreenLawyer from './lawyerpages/SignupScreenLawyer';
 import LoginScreenLawyer from './lawyerpages/LoginScreenLawyer';
 import { doc, getDoc } from "firebase/firestore";
 import { Console, error } from 'console';
+
 // import { doc, updateDoc } from 'firebase/firestore';
 
 const Stack = createNativeStackNavigator();
@@ -82,12 +93,57 @@ const MainScreen = () =>{
       }
     </Drawer.Navigator>)
 }
+const LMainScreen = () =>{
+  return(<Drawer.Navigator
+    drawerType="front"
+    initialRouteName="Login Screen"
+    screenOptions={{
+      activeTintColor: '#e91e63',
+      itemStyle: { marginVertical: 10 },
+    }}
+
+>
+
+    {
+        LDrawerItems.map(drawer=><Drawer.Screen
+        key={drawer.name}
+        name={drawer.name}
+        options={{
+        drawerIcon:({focused})=>
+          drawer.iconType==='Material' ?
+<MaterialCommunityIcons
+              name={drawer.iconName}
+              size={24}
+              color={focused ? "#e91e63" : "black"}
+          />
+        :
+        drawer.iconType==='Feather' ?
+<Feather
+            name={drawer.iconName}
+            size={24}
+            color={focused ? "#e91e63" : "black"}
+          />
+      : <></>    
+        }}
+        component = {
+          //drawer.name==='LoginScreen' ? LoginScreen
+            drawer.name==='Home' ? LHomeScreen
+            : drawer.name==='Profile' ? LProfileScreen
+            : drawer.name==='Client' ? LClientsScreen
+              :drawer.name==='Proceedings' ? LProceedingsScreen
+                :drawer.name==='Resources' ? LResourcesScreen
+                  : LMapScreen
+        }
+/>)
+      }
+    </Drawer.Navigator>)
+}
 
 const Permission = () =>{
   return(<View style={styles.centerContainer}><Text >Please allow location Permission</Text></View>)
 }
-const Error = () =>{
-  return(<View style={styles.centerContainer}><Text >Error please contact admins</Text></View>)
+const Loading = () =>{
+  return(<View style={styles.centerContainer}><Text >Loading...</Text></View>)
 }
 export default function App() {
   // const [location, setLocation] = useState(null);
@@ -212,7 +268,7 @@ if (docSnap.exists()) {
           <Stack.Group>
             <Stack.Screen
           name="MainLawyer"
-          component={MainScreen}
+          component={LMainScreen}
       
           />  
             </Stack.Group>
@@ -232,7 +288,7 @@ if (docSnap.exists()) {
         </Stack.Group>
       ):(
         <Stack.Group>
-        <Stack.Screen name="Error" component={Error}/>
+        <Stack.Screen name="Loading" component={Loading}/>
         </Stack.Group>
 
       )

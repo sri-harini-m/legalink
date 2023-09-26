@@ -9,10 +9,6 @@ import { FIREBASE_DB } from "../firebaseConfig";
 import { doc, getDoc } from "firebase/firestore";
 
 import MapView from "react-native-maps";
-import * as TaskManager from "expo-task-manager";
-
-import { LOCATION_TRACKING } from "./Home";
-import * as Location from "expo-location";
 
 export default function ProfileScreen() {
   const [docSnapData, setdocSnapData] = useState({ PhoneNumber: "loading..." });
@@ -21,11 +17,6 @@ export default function ProfileScreen() {
   let user = auth.currentUser;
   console.log(typeof user.displayName);
   const signoutFirebase = async () => {
-    TaskManager.isTaskRegisteredAsync(LOCATION_TRACKING).then((tracking) => {
-      if (tracking) {
-        Location.stopLocationUpdatesAsync(LOCATION_TRACKING);
-      }
-    });
     signOut(auth);
   };
   onAuthStateChanged(auth, (newUser) => {
@@ -73,19 +64,6 @@ export default function ProfileScreen() {
             <Text style={styles.infoLabel}>signout</Text>
           </TouchableOpacity>
         </View>
-      </View>
-      <View style={styles.locationContainer}>
-        <Text style={styles.infoLabel}>Location:</Text>
-        <MapView
-          ref={(mapview) => {
-            this._mapview = mapview;
-          }}
-          showsUserLocation={true}
-          showsMyLocationButton={true}
-          style={styles.map}
-        ></MapView>
-
-        <Text style={styles.infoText}>Prison</Text>
       </View>
     </View>
   );
