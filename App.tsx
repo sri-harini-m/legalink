@@ -11,7 +11,7 @@ import { User, onAuthStateChanged } from "firebase/auth";
 
 import LoginScreen from './pages/LoginScreen';
 import  SignupScreen  from "./pages/SignupScreen";
-import { FIREBASE_AUTH } from './firebaseConfig';
+import { FIREBASE_AUTH, FIREBASE_DB } from './firebaseConfig';
 
 import HomeScreen from './pages/Home';
 import ProfileScreen from './pages/Profile';
@@ -27,8 +27,10 @@ import { Feather } from '@expo/vector-icons';
 import * as Location from 'expo-location';
 
 import DrawerItems from './constants/MenuItems';
-import SignupScreenLawyer from './pages/SignupScreenLawyer';
-import LoginScreenLawyer from './pages/LoginScreenLawyer';
+import SignupScreenLawyer from './lawyerpages/SignupScreenLawyer';
+import LoginScreenLawyer from './lawyerpages/LoginScreenLawyer';
+import { doc, getDoc } from "firebase/firestore";
+import { Console, error } from 'console';
 // import { doc, updateDoc } from 'firebase/firestore';
 
 const Stack = createNativeStackNavigator();
@@ -84,14 +86,17 @@ const MainScreen = () =>{
 const Permission = () =>{
   return(<View style={styles.centerContainer}><Text >Please allow location Permission</Text></View>)
 }
-
+const Error = () =>{
+  return(<View style={styles.centerContainer}><Text >Error please contact admins</Text></View>)
+}
 export default function App() {
   // const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState("no error");
 
   const auth = FIREBASE_AUTH
   const [user, setuser] = useState<User|null>(null);
-  
+  const [type, setType] = useState(null);
+
   // const getLocation = async () =>{
    
       
@@ -154,11 +159,22 @@ export default function App() {
     config();
 }, []);
 
-  
 useEffect(()=>{
-  onAuthStateChanged(auth, (user)=>{
-    console.log(user)
+  onAuthStateChanged(auth, async(user)=>{
     setuser(user)
+    console.log("user:", user)
+    
+    const docRef = doc(FIREBASE_DB, "/users", user.uid);
+  const docSnap = await getDoc(docRef);
+
+if (docSnap.exists()) {
+  setType(docSnap.data().Type)
+
+  console.log("Document data:", type);
+} else {
+  // docSnap.data() will be undefined in this case
+  console.log("No such document!");
+}
   })
 },[])
 
@@ -168,7 +184,7 @@ useEffect(()=>{
              
 
       {
-      (user == null)?(
+      (user == null && type == null)?(
         <Stack.Group>
         <Stack.Screen
           name="Login"
@@ -183,13 +199,26 @@ useEffect(()=>{
           name="SignupLawyer"
           component={SignupScreenLawyer}/> 
           </Stack.Group>       
-      ):
+      )
+      
+      :
       (errorMsg !== 'granted')?(
       <Stack.Group>
         <Stack.Screen name="permission" component={Permission}/>
         </Stack.Group>
 
         ):
+        ( type == "Lawyer")?(
+          <Stack.Group>
+            <Stack.Screen
+          name="MainLawyer"
+          component={MainScreen}
+      
+          />  
+            </Stack.Group>
+    
+            ):
+            (type == "Client")?
       (    <Stack.Group>
         <Stack.Screen
           name="Main"
@@ -201,6 +230,11 @@ useEffect(()=>{
           component={AttorneysDetails}/>
 
         </Stack.Group>
+      ):(
+        <Stack.Group>
+        <Stack.Screen name="Error" component={Error}/>
+        </Stack.Group>
+
       )
       
 }

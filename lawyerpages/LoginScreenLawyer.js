@@ -98,18 +98,6 @@ function LoginScreenLawyer({ navigation }) {
       >
         <Text style={styles.loginText}>LOGIN </Text>
       </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.submitButton}
-        onPress={() => navigation.navigate("Signup")}
-      >
-        <Text style={styles.submitButtonText}> Signup </Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.submitButton}
-        onPress={() => navigation.navigate("Login")}
-      >
-        <Text style={styles.submitButtonText}> Signup </Text>
-      </TouchableOpacity>
     </View>
   );
 }
