@@ -1,47 +1,83 @@
 import * as React from 'react';
 import { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Image, ScrollView } from 'react-native';
-
+import { View, Text, TouchableOpacity, StyleSheet, Image, ScrollView, Linking} from 'react-native';
 export default function LegalAidScreen() {
 
     const[clinics, setCards]  = useState([
          {
             id: '1',
-            image: require('../assets/voc.jpg'),
-            type:'Vocational Training',
-            link: 'https://www.aicte-india.org/education/vocational-education'
+            image: require('../assets/amity_legal_aid.jpg'),
+            type:'Amity Legal Aid, Delhi',
+            link: 'https://in.linkedin.com/in/amity-legal-aid-cell-amity-law-school-noida-01a9081b5'
           },
           {
             id: '2',
-            image: require('../assets/mh.jpg'),
-            type:'Mental Health',
-            link:'https://www.mind.org.uk/information-support/tips-for-everyday-living/wellbeing/'
+            image: require('../assets/tiss_aid.jpg'),
+            type:'TISS Legal Service Clinic, Bombay',
+            link:'https://www.tiss.edu/view/11/projects/all-projects/tiss-legal-service-clinic/'
           },
           {
             id: '3',
-            image: require('../assets/relap.jpg'),
-            type:'Relapse Prevention',
-            link:'https://recoverycentersofamerica.com/blogs/top-5-things-to-do-to-avoid-relapse/'
+            image: require('../assets/rml.jpg'),
+            type:'Legal Aid Committee, RMLNLU',
+            link:'https://www.rmlnlu.ac.in/legal_aid_social_awareness.html'
           }
       ]);
+      const[organisations, setCard]  = useState([
+        {
+           id: '1',
+           image: require('../assets/cfssa.jpg'),
+           type:'Center for Social Justice',
+           link: 'https://www.centreforsocialjustice.net/'
+         },
+         {
+           id: '2',
+           image: require('../assets/ccs.jpg'),
+           type:'Center for Civil Society',
+           link:'https://ccs.in/'
+         },
+         {
+           id: '3',
+           image: require('../assets/slic.png'),
+           type:'Socio Legal Info Center',
+           link:'https://www.slic.org.in/'
+         }
+     ]);
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Legal Aid Clinic</Text>
+      <Text style={styles.title}>Legal Aid Clinics</Text>
       <ScrollView
         horizontal
         contentContainerStyle={styles.carouselContainer}
         showsHorizontalScrollIndicator={false}
       >
         {clinics.map((card) => (
-          <View key={card.id} style={styles.cardContainer}>
+          <TouchableOpacity key={card.id} style={styles.cardContainer}  onPress={()=> Linking.openURL(card.link)}>
             <Image source={card.image} resizeMode= 'cover' style={styles.image} />
             <View style={styles.cardInfoContainer}>
               <View style={styles.cardInfoItem}>
               <Text style={styles.dets}>{card.type}</Text>
               </View>
             </View>
-          </View>
+          </TouchableOpacity>
+        ))}
+      </ScrollView>
+      <Text style={styles.title}>Legal Aid Organisations</Text>
+      <ScrollView
+        horizontal
+        contentContainerStyle={styles.carouselContainer}
+        showsHorizontalScrollIndicator={false}
+      >
+        {organisations.map((card) => (
+          <TouchableOpacity key={card.id} style={styles.cardContainer} onPress={()=> Linking.openURL(card.link)}>
+            <Image source={card.image} resizeMode= 'cover' style={styles.image} />
+            <View style={styles.cardInfoContainer}>
+              <View style={styles.cardInfoItem}>
+              <Text style={styles.dets}>{card.type}</Text>
+              </View>
+            </View>
+          </TouchableOpacity>
         ))}
       </ScrollView>
     </View>
