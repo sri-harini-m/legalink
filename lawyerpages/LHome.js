@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useState } from "react";
-import ChatBot from './LLawBot';//adding this for the chat bot
-import ChatModal from './LLawModal';
+import ChatBot from "./LLawBot"; //adding this for the chat bot
+import ChatModal from "./LLawModal";
 import {
   View,
   Text,
@@ -14,7 +14,7 @@ export default function LHomeScreen() {
   const [isChatOpen, setIsChatOpen] = React.useState(false);
 
   const toggleChat = () => {
-    setIsChatOpen(prevState => !prevState);
+    setIsChatOpen((prevState) => !prevState);
   };
 
   const options1 = {
@@ -42,7 +42,7 @@ export default function LHomeScreen() {
       Date: Date.UTC(2023, 9, 7, 10, 0, 0),
       caseNumber: "Case #56789",
       judgeName: "Meowster Meowman",
-      client: 'Mark Edward',
+      client: "Mark Edward",
       Status: "Upcoming",
       Notes: "Bring all relevant documents and ID",
     },
@@ -55,7 +55,7 @@ export default function LHomeScreen() {
       Date: Date.UTC(2023, 8, 18, 10, 0, 0),
       caseNumber: "Case #12345",
       judgeName: "Saad Mujeeb",
-      client: 'Mark Edward',
+      client: "Mark Edward",
       Status: "Completed",
       Notes: "Bring all relevant documents and ID",
     },
@@ -68,7 +68,7 @@ export default function LHomeScreen() {
       Date: Date.UTC(2023, 8, 18, 10, 0, 0),
       caseNumber: "Case #67890",
       judgeName: "Saad Mujeeb",
-      client: 'Mark Edward',
+      client: "Mark Edward",
       Status: "Completed",
       Notes: "Bring all relevant documents and ID",
     },
@@ -89,21 +89,21 @@ export default function LHomeScreen() {
                   <Text style={styles.Title}>
                     <Text style={styles.bold}>Title:</Text> {event.Title}
                   </Text>
-                  <Text  >
+                  <Text>
                     <Text style={styles.bold}>Description:</Text>
                     {event.Description}
                   </Text>
-                  <Text  >
+                  <Text>
                     <Text style={styles.bold}>judge:</Text> {event.judgeName}
                   </Text>
-                  <Text  >
+                  <Text>
                     <Text style={styles.bold}>Status:</Text> {event.Status}
                   </Text>
-                  <Text  >
+                  <Text>
                     <Text style={styles.bold}>Case Number:</Text>{" "}
                     {event.caseNumber}
                   </Text>
-                  <Text  >
+                  <Text>
                     <Text style={styles.bold}>Notes:</Text> {event.Notes}
                   </Text>
                   <Text style={styles.Date}>
@@ -131,21 +131,21 @@ export default function LHomeScreen() {
                   <Text style={styles.Title}>
                     <Text style={styles.bold}>Title:</Text> {event.Title}
                   </Text>
-                  <Text >
+                  <Text>
                     <Text style={styles.bold}>Description:</Text>
                     {event.Description}
                   </Text>
-                  <Text >
+                  <Text>
                     <Text style={styles.bold}>judge:</Text> {event.judgeName}
                   </Text>
-                  <Text >
+                  <Text>
                     <Text style={styles.bold}>Status:</Text> {event.Status}
                   </Text>
-                  <Text  >
+                  <Text>
                     <Text style={styles.bold}>Case Number:</Text>{" "}
                     {event.caseNumber}
                   </Text>
-                  <Text  >
+                  <Text>
                     <Text style={styles.bold}>Notes:</Text> {event.Notes}
                   </Text>
                   <Text style={styles.Date}>
@@ -162,20 +162,21 @@ export default function LHomeScreen() {
       </View>
 
       <View style={{ flex: 1 }}>
-      {isChatOpen && <ChatBot />}
-      <TouchableOpacity
-        style={{ flex: 0, alignSelf: 'flex-start', margin: 20 }}
-        onPress={toggleChat}
-      >
-        {/* button kek also why comments being weird here */}
-        <View style={{ padding: 10, backgroundColor: 'blue', borderRadius: 10 }}>
-          <Text style={{ color: 'white', fontWeight: 'bold' }}>Law Bot</Text>
-        </View>
-      </TouchableOpacity>
-      <ChatModal isVisible={isChatOpen} onClose={toggleChat} />
-    </View>
+        {isChatOpen && <ChatBot />}
+        <TouchableOpacity
+          style={{ flex: 0, alignSelf: "flex-start", margin: 20 }}
+          onPress={toggleChat}
+        >
+          {/* button kek also why comments being weird here */}
+          <View
+            style={{ padding: 10, backgroundColor: "blue", borderRadius: 10 }}
+          >
+            <Text style={{ color: "white", fontWeight: "bold" }}>Law Bot</Text>
+          </View>
+        </TouchableOpacity>
+        <ChatModal isVisible={isChatOpen} onClose={toggleChat} />
+      </View>
     </ScrollView>
-    
   );
 }
 const styles = StyleSheet.create({

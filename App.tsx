@@ -20,7 +20,9 @@ import AttorneyScreen from './pages/Attorneys';
 import LegalAidScreen from './pages/LegalAid';
 import ResourcesScreen from './pages/Resources';
 import RehabScreen from './pages/Rehab';
+
 import AttorneysDetails  from "./pages/nested_pages/AttorneysDetails";
+import AddClients from "./lawyerpages/nested_pages/AddClients";
 
 import LClientsScreen from "./lawyerpages/LClients";
 import LHomeScreen from "./lawyerpages/LHome";
@@ -130,7 +132,7 @@ const LMainScreen = () =>{
           //drawer.name==='LoginScreen' ? LoginScreen
             drawer.name==='Home' ? LHomeScreen
             : drawer.name==='Profile' ? LProfileScreen
-            : drawer.name==='Client' ? LClientsScreen
+            : drawer.name==='Clients' ? LClientsScreen
               :drawer.name==='Proceedings' ? LProceedingsScreen
                 :drawer.name==='Resources' ? LResourcesScreen
                   : LMapScreen
@@ -241,7 +243,7 @@ if (docSnap.exists()) {
              
 
       {
-      (user == null && type == null)?(
+      (user == null )?(
         <Stack.Group>
         <Stack.Screen
           name="Login"
@@ -275,6 +277,9 @@ if (docSnap.exists()) {
              <Stack.Screen
           name="LClientsDetails"
           component={LClientsDetails}/>
+          <Stack.Screen
+          name="AddClients"
+          component={AddClients}/>
             </Stack.Group>
     
             ):

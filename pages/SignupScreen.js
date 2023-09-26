@@ -65,6 +65,8 @@ function SignupScreen({ navigation }) {
         {
           Name: Name,
           PhoneNumber: Number,
+          Type: "Client",
+          Email: email,
         }
       );
 

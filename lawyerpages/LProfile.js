@@ -5,24 +5,21 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { signOut } from "firebase/auth";
 
-import { FIREBASE_DB } from "../firebaseConfig";
+import { FIREBASE_DB, FIREBASE_AUTH } from "../firebaseConfig";
 import { doc, getDoc } from "firebase/firestore";
 
 import MapView from "react-native-maps";
 
 export default function ProfileScreen() {
   const [docSnapData, setdocSnapData] = useState({ PhoneNumber: "loading..." });
-  let displayName = undefined;
-  const auth = getAuth();
-  let user = auth.currentUser;
-  console.log(typeof user.displayName);
+  const auth = FIREBASE_AUTH;
+  console.log(auth.currentUser.displayName);
   const signoutFirebase = async () => {
     signOut(auth);
   };
-  onAuthStateChanged(auth, (newUser) => {
-    user = newUser;
-    console.log(newUser);
-  });
+
+  const user = auth.currentUser;
+
   useEffect(() => {
     async function fetchData() {
       const docRef = doc(FIREBASE_DB, "users", user.uid);
@@ -44,7 +41,7 @@ export default function ProfileScreen() {
           <Text style={styles.avatar}>ME</Text>
         </View>
         <View style={styles.nameContainer}>
-          <Text style={styles.name}>{user.displayName}</Text>
+          <Text style={styles.name}>{auth.currentUser.displayName}</Text>
         </View>
         <View style={styles.infoContainer}>
           <Text style={styles.infoLabel}>Phone:</Text>

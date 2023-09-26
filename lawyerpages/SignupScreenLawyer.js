@@ -72,6 +72,7 @@ function SignupScreenLawyer({ navigation }) {
           Email: email,
           Occupation: Occupation,
           Type: "Lawyer",
+          Clients: {},
         }
       );
 

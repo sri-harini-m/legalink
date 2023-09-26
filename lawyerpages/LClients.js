@@ -86,6 +86,22 @@ export default function LClients({ navigation }) {
           );
         }}
       />
+      <View style={{ flex: 1 }}>
+        <TouchableOpacity
+          style={{ flex: 0, alignSelf: "flex-start", margin: 20 }}
+          onPress={() => {
+            navigation.push("AddClients");
+          }}
+        >
+          <View
+            style={{ padding: 10, backgroundColor: "blue", borderRadius: 10 }}
+          >
+            <Text style={{ color: "white", fontWeight: "bold" }}>
+              Add More Clients
+            </Text>
+          </View>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
