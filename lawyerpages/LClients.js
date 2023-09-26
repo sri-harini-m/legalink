@@ -20,7 +20,7 @@ export default function LClients({ navigation }) {
       name: "Sriharini Margapuri",
       caseno: "#12345",
       description: "Civil dispute",
-      evidence: ['contracts', 'credit card']
+      evidence: ["contracts", "credit card"],
     },
     {
       id: 2,
@@ -29,15 +29,15 @@ export default function LClients({ navigation }) {
       name: "Mark Edwards",
       caseno: "#67890",
       description: "Allegedly commited murder",
-      evidence: ['knife', 'clothes']
+      evidence: ["knife", "clothes"],
     },
   ];
-  
-  const [searchText, setSearchText] = useState('');
+
+  const [searchText, setSearchText] = useState("");
 
   const handleSearch = (text) => {
     setSearchText(text);
-  }
+  };
   const filteredData = optionList.filter((item) => {
     return item.name.toLowerCase().includes(searchText.toLowerCase());
   });

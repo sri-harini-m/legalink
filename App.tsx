@@ -28,6 +28,7 @@ import LMapScreen from "./lawyerpages/LMap";
 import LProfileScreen from "./lawyerpages/LProfile";
 import LResourcesScreen from "./lawyerpages/LResources";
 import LProceedingsScreen from "./lawyerpages/LProceedings";
+import LClientsDetails from "./lawyerpages/nested_pages/LClientsDetails";
 
 
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -271,6 +272,9 @@ if (docSnap.exists()) {
           component={LMainScreen}
       
           />  
+             <Stack.Screen
+          name="LClientsDetails"
+          component={LClientsDetails}/>
             </Stack.Group>
     
             ):
