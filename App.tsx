@@ -27,6 +27,8 @@ import { Feather } from '@expo/vector-icons';
 import * as Location from 'expo-location';
 
 import DrawerItems from './constants/MenuItems';
+import SignupScreenLawyer from './pages/SignupScreenLawyer';
+import LoginScreenLawyer from './pages/LoginScreenLawyer';
 // import { doc, updateDoc } from 'firebase/firestore';
 
 const Stack = createNativeStackNavigator();
@@ -173,7 +175,13 @@ useEffect(()=>{
           component={LoginScreen}/>
         <Stack.Screen
           name="Signup"
-          component={SignupScreen}/>  
+          component={SignupScreen}/>
+        <Stack.Screen
+          name="LoginLawyer"
+          component={LoginScreenLawyer}/>
+        <Stack.Screen
+          name="SignupLawyer"
+          component={SignupScreenLawyer}/> 
           </Stack.Group>       
       ):
       (errorMsg !== 'granted')?(

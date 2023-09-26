@@ -6,9 +6,8 @@ import {
   TextInput,
   StyleSheet,
 } from "react-native";
-import { FIREBASE_AUTH, FIREBASE_DB } from "../firebaseConfig";
-import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore";
+import { FIREBASE_AUTH } from "../firebaseConfig";
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 // import { SQLite } from "react-native-sqlite-storage"
 
@@ -23,18 +22,9 @@ import { doc, setDoc } from "firebase/firestore";
 //     (error) =>{console.log(error)}
 // )
 
-function SignupScreen({ navigation }) {
+function LoginScreenLawyer({ navigation }) {
   const [email, setemail] = useState([""]);
   const [password, setpassword] = useState([""]);
-  const [Name, setName] = useState([""]);
-  const [Number, setNumber] = useState(1000000000);
-
-  handleNumber = (number) => {
-    setNumber(number);
-  };
-  handleName = (text) => {
-    setName(text);
-  };
   handleEmail = (text) => {
     setemail(text);
   };
@@ -51,27 +41,19 @@ function SignupScreen({ navigation }) {
 
   auth = FIREBASE_AUTH;
 
-  const signUp = async (email, password) => {
+  const signIn = async (email, password) => {
     try {
-      const response = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-      await updateProfile(auth.currentUser, { displayName: Name });
-
-      const docRef = await setDoc(
-        doc(FIREBASE_DB, "/users", auth.currentUser.uid),
-        {
-          Name: Name,
-          PhoneNumber: Number,
-        }
-      );
-
+      const response = await signInWithEmailAndPassword(auth, email, password);
       console.log(response);
     } catch (error) {
-      console.log(error);
-      alert("Please Contact Admins");
+      if (error.code == "auth/invalid-login-credentials") {
+        alert("Incorrect Login Credentials");
+      } else if (error.code == "auth/invalid-email") {
+        alert("Invalid Email");
+      } else {
+        console.log(error);
+        alert("Please Contact Admins");
+      }
     }
   };
 
@@ -90,15 +72,7 @@ function SignupScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}> Signup Now!</Text>
-      <View style={styles.inputView}>
-        <TextInput
-          style={styles.inputText}
-          placeholder="Name"
-          placeholderTextColor="#003f5c"
-          onChangeText={this.handleName}
-        />
-      </View>
+      <Text style={styles.title}> Login Screen</Text>
       <View style={styles.inputView}>
         <TextInput
           style={styles.inputText}
@@ -107,14 +81,7 @@ function SignupScreen({ navigation }) {
           onChangeText={this.handleEmail}
         />
       </View>
-      <View style={styles.inputView}>
-        <TextInput
-          style={styles.inputText}
-          placeholder="Phone Number"
-          placeholderTextColor="#003f5c"
-          onChangeText={this.handleNumber}
-        />
-      </View>
+
       <View style={styles.inputView}>
         <TextInput
           style={styles.inputText}
@@ -125,23 +92,23 @@ function SignupScreen({ navigation }) {
       </View>
       <TouchableOpacity
         onPress={() => {
-          signUp(email, password);
+          signIn(email, password);
         }}
         style={styles.loginBtn}
       >
-        <Text style={styles.loginText}>Signup </Text>
+        <Text style={styles.loginText}>LOGIN </Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.submitButton}
+        onPress={() => navigation.navigate("Signup")}
+      >
+        <Text style={styles.submitButtonText}> Signup </Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.submitButton}
         onPress={() => navigation.navigate("Login")}
       >
-        <Text style={styles.submitButtonText}> Login </Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.submitButton}
-        onPress={() => navigation.push("SignupLawyer")}
-      >
-        <Text style={styles.submitButtonText}> Signup For Lawyers </Text>
+        <Text style={styles.submitButtonText}> Signup </Text>
       </TouchableOpacity>
     </View>
   );
@@ -183,4 +150,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SignupScreen;
+export default LoginScreenLawyer;

@@ -15,7 +15,7 @@ import { FIREBASE_DB } from "../firebaseConfig";
 
 import * as TaskManager from "expo-task-manager";
 
-const LOCATION_TRACKING = "location-tracking";
+export const LOCATION_TRACKING = "location-tracking";
 
 export default function HomeScreen() {
   const [isChatOpen, setIsChatOpen] = React.useState(false);

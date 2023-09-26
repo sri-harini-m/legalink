@@ -104,6 +104,12 @@ function LoginScreen({ navigation }) {
       >
         <Text style={styles.submitButtonText}> Signup </Text>
       </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.submitButton}
+        onPress={() => navigation.push("LoginLawyer")}
+      >
+        <Text style={styles.submitButtonText}> Login For Lawyers </Text>
+      </TouchableOpacity>
     </View>
   );
 }
