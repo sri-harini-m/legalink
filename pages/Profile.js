@@ -21,11 +21,18 @@ export default function ProfileScreen() {
   let user = auth.currentUser;
   console.log(typeof user.displayName);
   const signoutFirebase = async () => {
-    TaskManager.isTaskRegisteredAsync(LOCATION_TRACKING).then((tracking) => {
-      if (tracking) {
-        Location.stopLocationUpdatesAsync(LOCATION_TRACKING);
-      }
-    });
+    const stopLocation = () => {
+      TaskManager.isTaskRegisteredAsync("location-tracking").then(
+        (tracking) => {
+          console.log("ending location tracking");
+          if (tracking) {
+            TaskManager.unregisterTaskAsync("location-tracking");
+            console.log("ended location tracking");
+          }
+        }
+      );
+    };
+    stopLocation();
     signOut(auth);
   };
   onAuthStateChanged(auth, (newUser) => {
