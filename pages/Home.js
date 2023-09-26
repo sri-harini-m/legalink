@@ -1,7 +1,7 @@
 import * as React from "react";
-import { useState } from "react";
-import ChatBot from './LawBot';//adding this for the chat bot
-import ChatModal from './LawModal';
+import ChatBot from "./LawBot"; //adding this for the chat bot
+import ChatModal from "./LawModal";
+import { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -9,13 +9,56 @@ import {
   StyleSheet,
   ScrollView,
 } from "react-native";
+import * as Location from "expo-location";
+import { doc, updateDoc } from "firebase/firestore";
+import { FIREBASE_DB } from "../firebaseConfig";
+
+import * as TaskManager from "expo-task-manager";
+
+const LOCATION_TRACKING = "location-tracking";
 
 export default function HomeScreen() {
   const [isChatOpen, setIsChatOpen] = React.useState(false);
 
   const toggleChat = () => {
-    setIsChatOpen(prevState => !prevState);
+    setIsChatOpen((prevState) => !prevState);
   };
+
+  const [location, setLocation] = useState(null);
+
+  // useEffect(() => {
+  //   (async () => {
+  //     let location = await Location.getCurrentPositionAsync({});
+  //     let latitude = (await location).coords.latitude;
+  //     let longitude = (await location).coords.longitude;
+
+  //     const docRef = await updateDoc(
+  //       doc(FIREBASE_DB, "/users", auth.currentUser.uid),
+  //       {
+  //         latitude: latitude,
+  //         longitude: longitude,
+  //       }
+  //     );
+  //     console.log("location:", latitude, longitude);
+  //   })();
+  // }, []);
+
+  const [locationStarted, setLocationStarted] = React.useState(false);
+
+  const startLocationTracking = async () => {
+    await Location.startLocationUpdatesAsync(LOCATION_TRACKING, {
+      accuracy: Location.Accuracy.Highest,
+      timeInterval: 60000,
+      distanceInterval: 0,
+    });
+    const hasStarted = await Location.hasStartedLocationUpdatesAsync(
+      LOCATION_TRACKING
+    );
+    setLocationStarted(hasStarted);
+    console.log("tracking started?", hasStarted);
+  };
+
+  startLocationTracking();
 
   const options1 = {
     year: "numeric",
@@ -74,21 +117,21 @@ export default function HomeScreen() {
                   <Text style={styles.Title}>
                     <Text style={styles.bold}>Title:</Text> {event.Title}
                   </Text>
-                  <Text  >
+                  <Text>
                     <Text style={styles.bold}>Description:</Text>
                     {event.Description}
                   </Text>
-                  <Text  >
+                  <Text>
                     <Text style={styles.bold}>judge:</Text> {event.judgeName}
                   </Text>
-                  <Text  >
+                  <Text>
                     <Text style={styles.bold}>Status:</Text> {event.Status}
                   </Text>
-                  <Text  >
+                  <Text>
                     <Text style={styles.bold}>Case Number:</Text>{" "}
                     {event.caseNumber}
                   </Text>
-                  <Text  >
+                  <Text>
                     <Text style={styles.bold}>Notes:</Text> {event.Notes}
                   </Text>
                   <Text style={styles.Date}>
@@ -116,21 +159,21 @@ export default function HomeScreen() {
                   <Text style={styles.Title}>
                     <Text style={styles.bold}>Title:</Text> {event.Title}
                   </Text>
-                  <Text >
+                  <Text>
                     <Text style={styles.bold}>Description:</Text>
                     {event.Description}
                   </Text>
-                  <Text >
+                  <Text>
                     <Text style={styles.bold}>judge:</Text> {event.judgeName}
                   </Text>
-                  <Text >
+                  <Text>
                     <Text style={styles.bold}>Status:</Text> {event.Status}
                   </Text>
-                  <Text  >
+                  <Text>
                     <Text style={styles.bold}>Case Number:</Text>{" "}
                     {event.caseNumber}
                   </Text>
-                  <Text  >
+                  <Text>
                     <Text style={styles.bold}>Notes:</Text> {event.Notes}
                   </Text>
                   <Text style={styles.Date}>
@@ -147,20 +190,21 @@ export default function HomeScreen() {
       </View>
 
       <View style={{ flex: 1 }}>
-      {isChatOpen && <ChatBot />}
-      <TouchableOpacity
-        style={{ flex: 0, alignSelf: 'flex-start', margin: 20 }}
-        onPress={toggleChat}
-      >
-        {/* button kek also why comments being weird here */}
-        <View style={{ padding: 10, backgroundColor: 'blue', borderRadius: 10 }}>
-          <Text style={{ color: 'white', fontWeight: 'bold' }}>Law Bot</Text>
-        </View>
-      </TouchableOpacity>
-      <ChatModal isVisible={isChatOpen} onClose={toggleChat} />
-    </View>
+        {isChatOpen && <ChatBot />}
+        <TouchableOpacity
+          style={{ flex: 0, alignSelf: "flex-start", margin: 20 }}
+          onPress={toggleChat}
+        >
+          {/* button kek also why comments being weird here */}
+          <View
+            style={{ padding: 10, backgroundColor: "blue", borderRadius: 10 }}
+          >
+            <Text style={{ color: "white", fontWeight: "bold" }}>Law Bot</Text>
+          </View>
+        </TouchableOpacity>
+        <ChatModal isVisible={isChatOpen} onClose={toggleChat} />
+      </View>
     </ScrollView>
-    
   );
 }
 const styles = StyleSheet.create({
@@ -190,4 +234,23 @@ const styles = StyleSheet.create({
     margin: 10,
     borderRadius: 10,
   },
+});
+TaskManager.defineTask(LOCATION_TRACKING, async ({ data, error }) => {
+  if (error) {
+    console.log("LOCATION_TRACKING task ERROR:", error);
+    return;
+  }
+  if (data) {
+    const { locations } = data;
+    let lat = locations[0].coords.latitude;
+    let long = locations[0].coords.longitude;
+    const docRef = await updateDoc(
+      doc(FIREBASE_DB, "/users", auth.currentUser.uid),
+      {
+        latitude: lat,
+        longitude: long,
+      }
+    );
+    console.log(`${new Date(Date.now()).toLocaleString()}: ${lat},${long}`);
+  }
 });
