@@ -9,6 +9,7 @@ import {
   StyleSheet,
   ScrollView,
 } from "react-native";
+import * as TaskManager from "expo-task-manager";
 
 export default function LHomeScreen() {
   const [isChatOpen, setIsChatOpen] = React.useState(false);
@@ -32,6 +33,16 @@ export default function LHomeScreen() {
     date
   );
 
+  const stopLocation = () => {
+    TaskManager.isTaskRegisteredAsync("location-tracking").then((tracking) => {
+      console.log("ending location tracking");
+      if (tracking) {
+        TaskManager.unregisterTaskAsync("location-tracking");
+        console.log("ended location tracking");
+      }
+    });
+  };
+  stopLocation();
   const events = [
     {
       id: 1,
