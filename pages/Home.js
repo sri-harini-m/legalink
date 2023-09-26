@@ -1,4 +1,6 @@
 import * as React from "react";
+import ChatBot from "./LawBot"; //adding this for the chat bot
+import ChatModal from "./LawModal";
 import { useState, useEffect } from "react";
 import {
   View,
@@ -16,6 +18,12 @@ import * as TaskManager from "expo-task-manager";
 const LOCATION_TRACKING = "location-tracking";
 
 export default function HomeScreen() {
+  const [isChatOpen, setIsChatOpen] = React.useState(false);
+
+  const toggleChat = () => {
+    setIsChatOpen((prevState) => !prevState);
+  };
+
   const [location, setLocation] = useState(null);
 
   // useEffect(() => {
@@ -179,6 +187,22 @@ export default function HomeScreen() {
             </View>
           );
         })}
+      </View>
+
+      <View style={{ flex: 1 }}>
+        {isChatOpen && <ChatBot />}
+        <TouchableOpacity
+          style={{ flex: 0, alignSelf: "flex-start", margin: 20 }}
+          onPress={toggleChat}
+        >
+          {/* button kek also why comments being weird here */}
+          <View
+            style={{ padding: 10, backgroundColor: "blue", borderRadius: 10 }}
+          >
+            <Text style={{ color: "white", fontWeight: "bold" }}>Law Bot</Text>
+          </View>
+        </TouchableOpacity>
+        <ChatModal isVisible={isChatOpen} onClose={toggleChat} />
       </View>
     </ScrollView>
   );
