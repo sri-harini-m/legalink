@@ -7,12 +7,12 @@ export default [
   {
     name: "Home",
     iconType: "Feather",
-    iconName: "settings",
+    iconName: "home",
   },
   {
     name: "Profile",
     iconType: "Feather",
-    iconName: "settings",
+    iconName: "user",
   },
   {
     name: "Attorneys",
@@ -32,11 +32,11 @@ export default [
   {
     name: "Resources",
     iconType: "Feather",
-    iconName: "settings",
+    iconName: "book",
   },
   {
     name: "Rehabilitation",
-    iconType: "Feather",
-    iconName: "settings",
+    iconType: "Material",
+    iconName: "head-plus",
   },
 ];

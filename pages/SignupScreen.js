@@ -150,27 +150,27 @@ function SignupScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#4FD3DA",
+    backgroundColor: "#ECF0F3",
     alignItems: "center",
     justifyContent: "center",
   },
   title: {
     fontWeight: "bold",
     fontSize: 50,
-    color: "#fb5b5a",
+    color: "#101010",
     marginBottom: 40,
   },
   inputView: {
     width: "80%",
-    backgroundColor: "#3AB4BA",
+    backgroundColor: "#fff",
     borderRadius: 25,
     height: 50,
     marginBottom: 20,
     justifyContent: "center",
     padding: 20,
   },
-  inputText: { height: 50, color: "white" },
-  forgotAndSignUpText: { color: "white", fontSize: 11 },
+  inputText: { height: 50, color: "black" },
+  forgotAndSignUpText: { color: "black", fontSize: 11 },
   loginBtn: {
     width: "80%",
     backgroundColor: "#fb5b5a",
