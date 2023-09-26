@@ -17,6 +17,7 @@ import HomeScreen from './pages/Home';
 import ProfileScreen from './pages/Profile';
 import ProceedingsScreen from './pages/Proceedings';
 import AttorneyScreen from './pages/Attorneys';
+import LegalAidScreen from './pages/LegalAid';
 import ResourcesScreen from './pages/Resources';
 import RehabScreen from './pages/Rehab';
 import AttorneysDetails  from "./pages/nested_pages/AttorneysDetails";
@@ -35,7 +36,7 @@ const MainScreen = () =>{
   return(<Drawer.Navigator
     drawerType="front"
     initialRouteName="Login Screen"
-    drawerContentOptions={{
+    screenOptions={{
       activeTintColor: '#e91e63',
       itemStyle: { marginVertical: 10 },
     }}
@@ -68,6 +69,7 @@ const MainScreen = () =>{
             drawer.name==='Home' ? HomeScreen
             : drawer.name==='Profile' ? ProfileScreen
             : drawer.name==='Attorneys' ? AttorneyScreen
+              :drawer.name==='Legal Aid' ? LegalAidScreen
               :drawer.name==='Proceedings' ? ProceedingsScreen
                 :drawer.name==='Resources' ? ResourcesScreen
                   : RehabScreen

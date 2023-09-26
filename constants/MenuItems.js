@@ -20,6 +20,11 @@ export default [
     iconName: "face-man-profile",
   },
   {
+    name: "Legal Aid",
+    iconType: "Material",
+    iconName: "scale-balance"
+  },
+  {
     name: "Proceedings",
     iconType: "Feather",
     iconName: "settings",
