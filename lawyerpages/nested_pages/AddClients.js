@@ -13,8 +13,9 @@ import { doc, updateDoc, arrayUnion, arrayRemove } from "firebase/firestore";
 
 export default function LMap({ navigation }) {
   const [uidText, setUidText] = useState(null);
+  const [NameText, setNameText] = useState("");
   const auth = FIREBASE_AUTH;
-  const uid = async (uid) => {
+  const uid = async (uid, Name) => {
     // const docRef = doc(FIREBASE_DB, "/users", uid);
     // const docSnap = await getDoc(docRef);
 
@@ -25,7 +26,7 @@ export default function LMap({ navigation }) {
     //   console.log("No such document!");
     // }
     await updateDoc(doc(FIREBASE_DB, "/users", auth.currentUser.uid), {
-      Clients: arrayUnion(uid),
+      Clients: arrayUnion({ Name: Name, Uid: uid }),
     });
     navigation.goBack();
   };
@@ -42,9 +43,20 @@ export default function LMap({ navigation }) {
           }}
         />
       </View>
+      <View style={styles.inputView}>
+        <TextInput
+          style={styles.inputText}
+          placeholder="Enter Client Name"
+          placeholderTextColor="#003f5c"
+          onChangeText={(text) => {
+            setNameText(text);
+          }}
+        />
+      </View>
+
       <TouchableOpacity
         onPress={() => {
-          uid(uidText);
+          uid(uidText, NameText);
         }}
         style={styles.loginBtn}
       >

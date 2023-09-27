@@ -22,19 +22,19 @@ export default function LMap({ navigation }) {
   const updateUid = (array) => {
     setClientUid(array);
   };
-  useEffect(() => {
-    async function fetchData() {
-      const docRef = doc(FIREBASE_DB, "/users", FIREBASE_AUTH.currentUser.uid);
-      const docSnap = await getDoc(docRef);
+  async function fetchData() {
+    const docRef = doc(FIREBASE_DB, "/users", FIREBASE_AUTH.currentUser.uid);
+    const docSnap = await getDoc(docRef);
 
-      if (docSnap.exists()) {
-        updateUid(docSnap.data().Clients);
-        console.log("Document data:", ClientUid);
-      } else {
-        // docSnap.data() will be undefined in this case
-        console.log("No such document!");
-      }
+    if (docSnap.exists()) {
+      updateUid(docSnap.data().Clients);
+      console.log("Document data:", ClientUid);
+    } else {
+      // docSnap.data() will be undefined in this case
+      console.log("No such document!");
     }
+  }
+  useEffect(() => {
     fetchData();
   }, []);
   const setLocationFn = (data) => {
@@ -100,12 +100,15 @@ export default function LMap({ navigation }) {
         renderItem={({ item }) => (
           <TouchableOpacity
             style={styles.loginBtn}
-            onPress={() => fetchDataNow(item)}
+            onPress={() => fetchDataNow(item.Uid)}
           >
-            <Text style={styles.loginText}>{item} </Text>
+            <Text style={styles.loginText}>{item.Name} </Text>
           </TouchableOpacity>
         )}
       />
+      <TouchableOpacity style={styles.loginBtn} onPress={() => fetchData()}>
+        <Text style={styles.loginText}>refresh</Text>
+      </TouchableOpacity>
 
       {/* {ClientUid.map((uid) => {
         <TouchableOpacity style={styles.loginBtn}>
