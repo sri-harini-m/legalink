@@ -20,16 +20,16 @@ const ChatBot = () => {
   const onSend = async newMessages => {//function to send messages
     setMessages(previousMessages => GiftedChat.append(previousMessages, newMessages)); //appends message
 
-    const userInput = newMessages[0].text;//messages in string obviously lol
+    const userInput = newMessages[0].text;//messages in string
     const response = await getChatbotResponse(userInput);//runs response function
 
     setMessages(previousMessages => GiftedChat.append(previousMessages, response));
   };
 
-  const getChatbotResponse = async userInput => { //said response function lol
+  const getChatbotResponse = async userInput => { //response function
     try {
       const response = await axios.post(
-        'https://api.openai.com/v1/engines/text-davinci-003/completions',//idk chat gpt said i have to add this to use apis 
+        'https://api.openai.com/v1/engines/text-davinci-003/completions',
         {
           prompt: `User: ${userInput}\n`,
           max_tokens: 150,
@@ -38,20 +38,20 @@ const ChatBot = () => {
         {
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer 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' // said api do not copy this is secret lmao
+            'Authorization': 'Bearer API_KEY' // replace with api key
           }
         }
       );
 
-      return [ /*gives an id to each response tried making it serial but didnt work so some dude said to do this*/
+      return [ /*gives an id to each response*/
         {
           _id: Math.round(Math.random() * 1000000),
           text:  `Legal Bot: ${response.data.choices[0].text.trim()}`,
           createdAt: new Date()
         }
       ];
-    } catch (error) {//error handling that some guy on yt said to add cause ai can cause errors *[acts shocked]*
-      console.error(error)//some random shit cause f errors
+    } catch (error) {//error handling
+      console.error(error)
       return [];
     }
   };
