@@ -1,14 +1,14 @@
 
 
-# 🛡️ **legalink** - Tech-Driven Solution for Undertrial Prisoners in India
+# 🛡️ **Legalink** - Tech-Driven Solution for Undertrial Prisoners in India
 working video:
 https://youtube.com/playlist?list=PL0O3KYKYrlxlrzLZ5nFvIQScpezIEFfqd&si=r6xacHUCqZpFRRdA
 
 
 ## 📜 **Introduction**
-Welcome to **legalink**, an innovative legal aid application developed by Team Litigation Logic. Our goal is to address the challenges faced by undertrial prisoners in India by providing a technology-driven solution that streamlines legal processes and makes essential legal resources more accessible.
+Welcome to **Legalink**, an innovative legal aid application developed by Team Litigation Logic. Our goal is to address the challenges faced by undertrial prisoners in India by providing a technology-driven solution that streamlines legal processes and makes essential legal resources more accessible.
 
-**legalink** is designed in response to problem statement **1282**, focusing on the use of technology to assist undertrial prisoners, making the legal system more transparent, affordable, and accessible.
+**Legalink** is designed in response to problem statement **1282**, focusing on the use of technology to assist undertrial prisoners, making the legal system more transparent, affordable, and accessible.
 
 ## 🚀 **Features Overview**
 
@@ -65,19 +65,19 @@ Welcome to **legalink**, an innovative legal aid application developed by Team L
    - **Comprehensive Access:** Similar to the client side, offering resources and information on ongoing court proceedings.
 
 ## 🎯 **Conclusion**
-**Legalite** is crafted to simplify the legal process, making it more affordable and accessible for undertrial prisoners in India. By leveraging AI and modern technology, we aim to make legal codes and rights easier to understand for everyone.
+**legalink** is crafted to simplify the legal process, making it more affordable and accessible for undertrial prisoners in India. By leveraging AI and modern technology, we aim to make legal codes and rights easier to understand for everyone.
 
 ## 🛠️ **Installation and Setup**
 
 1. **Clone the Repository:**
    ```bash
-   git clone https://github.com/team-litigation-logic/legalite.git
+   git clone https://github.com/team-litigation-logic/legalink.git
    ```
 
 2. **Install Dependencies:**
    Navigate to the project directory and install the necessary packages:
    ```bash
-   cd legalite
+   cd legalink
    npm install
    ```
 
@@ -103,7 +103,7 @@ Welcome to **legalink**, an innovative legal aid application developed by Team L
 ## Contributors:
 
 
-legalink is a collaborative effort fueled by the passion and dedication of its contributors. Meet the team behind Legalite:
+Legalink is a collaborative effort fueled by the passion and dedication of its contributors. Meet the team behind Legalink:
 
 [<img src="https://github.com/M-A-Edwards.png" width="100px;" alt="Mark Austin Edward" style="border-radius: 50%;"/><br /><sub><b>Mark Austin Edwards</b></sub>](https://github.com/M-A-Edwards) | [<img src="https://github.com/b1gh3ro.png" width="100px;" alt="Mohammed Saad" style="border-radius: 50%;"/><br /><sub><b>Mohammed Saad</b></sub>](https://github.com/b1gh3ro) | [<img src="https://github.com/sri-harini-m.png" width="100px;" alt="SriHarini" style="border-radius: 50%;"/><br /><sub><b>Sriharini Margapuri</b></sub>](https://github.com/sri-harini-m)
 | :---: | :---: | :---: |
