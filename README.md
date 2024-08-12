@@ -1,14 +1,14 @@
 
 
-# 🛡️ **Legalite** - Tech-Driven Solution for Undertrial Prisoners in India
+# 🛡️ **legalink** - Tech-Driven Solution for Undertrial Prisoners in India
 working video:
 https://youtube.com/playlist?list=PL0O3KYKYrlxlrzLZ5nFvIQScpezIEFfqd&si=r6xacHUCqZpFRRdA
 
 
 ## 📜 **Introduction**
-Welcome to **Legalite**, an innovative legal aid application developed by Team Litigation Logic. Our goal is to address the challenges faced by undertrial prisoners in India by providing a technology-driven solution that streamlines legal processes and makes essential legal resources more accessible.
+Welcome to **legalink**, an innovative legal aid application developed by Team Litigation Logic. Our goal is to address the challenges faced by undertrial prisoners in India by providing a technology-driven solution that streamlines legal processes and makes essential legal resources more accessible.
 
-**Legalite** is designed in response to problem statement **1282**, focusing on the use of technology to assist undertrial prisoners, making the legal system more transparent, affordable, and accessible.
+**legalink** is designed in response to problem statement **1282**, focusing on the use of technology to assist undertrial prisoners, making the legal system more transparent, affordable, and accessible.
 
 ## 🚀 **Features Overview**
 
@@ -103,7 +103,7 @@ Welcome to **Legalite**, an innovative legal aid application developed by Team L
 ## Contributors:
 
 
-Legalite is a collaborative effort fueled by the passion and dedication of its contributors. Meet the team behind Legalite:
+legalink is a collaborative effort fueled by the passion and dedication of its contributors. Meet the team behind Legalite:
 
 [<img src="https://github.com/M-A-Edwards.png" width="100px;" alt="Mark Austin Edward" style="border-radius: 50%;"/><br /><sub><b>Mark Austin Edwards</b></sub>](https://github.com/M-A-Edwards) | [<img src="https://github.com/b1gh3ro.png" width="100px;" alt="Mohammed Saad" style="border-radius: 50%;"/><br /><sub><b>Mohammed Saad</b></sub>](https://github.com/b1gh3ro) | [<img src="https://github.com/sri-harini-m.png" width="100px;" alt="SriHarini" style="border-radius: 50%;"/><br /><sub><b>Sriharini Margapuri</b></sub>](https://github.com/sri-harini-m)
 | :---: | :---: | :---: |
