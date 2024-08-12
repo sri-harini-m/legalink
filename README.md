@@ -91,8 +91,8 @@ Welcome to **legalink**, an innovative legal aid application developed by Team L
 
 ## 🛠️ **Technologies Used**
 - **Frontend:** React.js
-- **Backend:** Node.js, Express.js
-- **Database:** MongoDB
+- **Backend:** Node.js, Expo
+- **Database:** Firebase Firestore
 - **AI Integration:** OpenAI API for the AI Lawbot
 
 ## 🚀 **Future Enhancements**
