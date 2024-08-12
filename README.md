@@ -65,13 +65,13 @@ Welcome to **Legalink**, an innovative legal aid application developed by Team L
    - **Comprehensive Access:** Similar to the client side, offering resources and information on ongoing court proceedings.
 
 ## 🎯 **Conclusion**
-**legalink** is crafted to simplify the legal process, making it more affordable and accessible for undertrial prisoners in India. By leveraging AI and modern technology, we aim to make legal codes and rights easier to understand for everyone.
+**Legalink** is crafted to simplify the legal process, making it more affordable and accessible for undertrial prisoners in India. By leveraging AI and modern technology, we aim to make legal codes and rights easier to understand for everyone.
 
 ## 🛠️ **Installation and Setup**
 
 1. **Clone the Repository:**
    ```bash
-   git clone https://github.com/team-litigation-logic/legalink.git
+   git clone https://github.com/sri-harini-m/legalink.git
    ```
 
 2. **Install Dependencies:**
